@@ -1,3 +1,4 @@
+import json
 import requests
 
 from requests.exceptions import ConnectionError
@@ -23,15 +24,39 @@ def get_html(url: str) -> str | None:
 
 def get_weather_from_day(html: str) -> dict:
     soup = Bs(html, "html.parser")
-    pass
+    weather_info = {}
+    day = soup.find('div', class_="dates short-d").text
+    weather_info[day] = {}
+    table = soup.find('div', class_="weather-short").find("table")
+    table_rows = table.find_all('tr')
+    for row in table_rows:
+        weather_day = row.find('td', class_="weather-day").text
+
+        weather_info[day][weather_day] = {}
+
+        weather_temperature = row.find('td', class_="weather-temperature").text
+        weather_type = row.find('div', class_="wi")['title']
+        weather_feeling = row.find('td', class_="weather-feeling").text
+        weather_probability = row.find('td', class_="weather-probability").text
+
+        weather_info[day][weather_day]["weather_temperature"] = weather_temperature
+        weather_info[day][weather_day]["weather_type"] = weather_type
+        weather_info[day][weather_day]["weather_feeling"] = weather_feeling
+        weather_info[day][weather_day]["weather_probability"] = weather_probability
+    return weather_info
+
+def write_data_to_json(data: dict) -> None:
+    with open('weather.json', "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 URL = "https://world-weather.ru/pogoda/russia/saint_petersburg/7days/"
 html = get_html(url=URL)
 if html:
-    get_weather_from_day(html)
+    data = get_weather_from_day(html)
+    write_data_to_json(data)
 
 
 
 
 # for _ in range(10):
-#     print(UserAgent().random)
+#    print(UserAgent().chrome)

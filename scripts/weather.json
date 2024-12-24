@@ -1,0 +1,28 @@
+{
+  "Среда, 25 декабря": {
+    "Ночь": {
+      "weather_temperature": "+1°",
+      "weather_type": "Слабый дождь",
+      "weather_feeling": "-1°",
+      "weather_probability": "13%"
+    },
+    "Утро": {
+      "weather_temperature": "+1°",
+      "weather_type": "Пасмурно",
+      "weather_feeling": "-1°",
+      "weather_probability": "22%"
+    },
+    "День": {
+      "weather_temperature": "+2°",
+      "weather_type": "Пасмурно",
+      "weather_feeling": "0°",
+      "weather_probability": "11%"
+    },
+    "Вечер": {
+      "weather_temperature": "+3°",
+      "weather_type": "Слабый дождь",
+      "weather_feeling": "+1°",
+      "weather_probability": "84%"
+    }
+  }
+}
